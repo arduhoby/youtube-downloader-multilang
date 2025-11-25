@@ -1,6 +1,6 @@
 {
     "tts_engine": "elevenlabs",
-    "elevenlabs_api_key": "sk_b1ab46e2067a3040601484bd107a981de82cda26019fdb35",
+    "elevenlabs_api_key": "",
     "use_custom_voices": false,
     "elevenlabs_voices": {
         "tr_male": "pNInz6obpgDQGcFmaJgB",
