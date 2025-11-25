@@ -1,0 +1,38 @@
+{
+    "tts_engine": "elevenlabs",
+    "elevenlabs_api_key": "sk_b1ab46e2067a3040601484bd107a981de82cda26019fdb35",
+    "use_custom_voices": false,
+    "elevenlabs_voices": {
+        "tr_male": "pNInz6obpgDQGcFmaJgB",
+        "tr_female": "EXAVITQu4vr4xnSDxMaL",
+        "en_male": "2EiwWnXFnvU5JabPnv8n",
+        "en_female": "MF3mGyEYCl7XYWbV9V6O"
+    },
+    "custom_voice_ids": {
+        "tr_male": "01p4omegjS2n3rSDCM5u",
+        "tr_female": "o9DOmAyPjfFu8AfoFAnM",
+        "en_male": "TX3LPaxmHKxFdv7VOQHJ",
+        "en_female": "pFZP5JQG7iQjIQuC4Bku"
+    },
+    "video_format": "mp4",
+    "video_codec": "libx264",
+    "audio_codec": "aac",
+    "video_quality": 23,
+    "audio_bitrate": "192k",
+    "default_source_lang": "auto",
+    "default_target_lang": "en",
+    "enabled_languages": [
+        "tr",
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "ru",
+        "ja",
+        "ko",
+        "zh"
+    ],
+    "voice_gender_preference": "female"
+}

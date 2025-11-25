@@ -1,0 +1,169 @@
+{
+    "languages": {
+        "tr": {
+            "name": "Türkçe",
+            "native_name": "Türkçe",
+            "flag": "🇹🇷",
+            "whisper_code": "tr",
+            "translator_code": "tr",
+            "edge_tts": {
+                "male": "tr-TR-AhmetNeural",
+                "female": "tr-TR-EmelNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "en": {
+            "name": "İngilizce",
+            "native_name": "English",
+            "flag": "🇬🇧",
+            "whisper_code": "en",
+            "translator_code": "en",
+            "edge_tts": {
+                "male": "en-US-GuyNeural",
+                "female": "en-US-JennyNeural"
+            },
+            "elevenlabs": {
+                "male": "2EiwWnXFnvU5JabPnv8n",
+                "female": "MF3mGyEYCl7XYWbV9V6O"
+            }
+        },
+        "es": {
+            "name": "İspanyolca",
+            "native_name": "Español",
+            "flag": "🇪🇸",
+            "whisper_code": "es",
+            "translator_code": "es",
+            "edge_tts": {
+                "male": "es-ES-AlvaroNeural",
+                "female": "es-ES-ElviraNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "fr": {
+            "name": "Fransızca",
+            "native_name": "Français",
+            "flag": "🇫🇷",
+            "whisper_code": "fr",
+            "translator_code": "fr",
+            "edge_tts": {
+                "male": "fr-FR-HenriNeural",
+                "female": "fr-FR-DeniseNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "de": {
+            "name": "Almanca",
+            "native_name": "Deutsch",
+            "flag": "🇩🇪",
+            "whisper_code": "de",
+            "translator_code": "de",
+            "edge_tts": {
+                "male": "de-DE-ConradNeural",
+                "female": "de-DE-KatjaNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "it": {
+            "name": "İtalyanca",
+            "native_name": "Italiano",
+            "flag": "🇮🇹",
+            "whisper_code": "it",
+            "translator_code": "it",
+            "edge_tts": {
+                "male": "it-IT-DiegoNeural",
+                "female": "it-IT-ElsaNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "pt": {
+            "name": "Portekizce",
+            "native_name": "Português",
+            "flag": "🇵🇹",
+            "whisper_code": "pt",
+            "translator_code": "pt",
+            "edge_tts": {
+                "male": "pt-BR-AntonioNeural",
+                "female": "pt-BR-FranciscaNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "ru": {
+            "name": "Rusça",
+            "native_name": "Русский",
+            "flag": "🇷🇺",
+            "whisper_code": "ru",
+            "translator_code": "ru",
+            "edge_tts": {
+                "male": "ru-RU-DmitryNeural",
+                "female": "ru-RU-SvetlanaNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "ja": {
+            "name": "Japonca",
+            "native_name": "日本語",
+            "flag": "🇯🇵",
+            "whisper_code": "ja",
+            "translator_code": "ja",
+            "edge_tts": {
+                "male": "ja-JP-KeitaNeural",
+                "female": "ja-JP-NanamiNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "ko": {
+            "name": "Korece",
+            "native_name": "한국어",
+            "flag": "🇰🇷",
+            "whisper_code": "ko",
+            "translator_code": "ko",
+            "edge_tts": {
+                "male": "ko-KR-InJoonNeural",
+                "female": "ko-KR-SunHiNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        },
+        "zh": {
+            "name": "Çince",
+            "native_name": "中文",
+            "flag": "🇨🇳",
+            "whisper_code": "zh",
+            "translator_code": "zh-CN",
+            "edge_tts": {
+                "male": "zh-CN-YunxiNeural",
+                "female": "zh-CN-XiaoxiaoNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
+        }
+    }
+}
