@@ -1,5 +1,5 @@
 {
-    "tts_engine": "elevenlabs",
+    "tts_engine": "edge-tts",
     "elevenlabs_api_key": "",
     "use_custom_voices": false,
     "elevenlabs_voices": {
@@ -34,5 +34,6 @@
         "ko",
         "zh"
     ],
-    "voice_gender_preference": "female"
+    "voice_gender_preference": "female",
+    "prevent_overlap": false
 }

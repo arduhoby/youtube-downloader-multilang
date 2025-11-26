@@ -164,6 +164,21 @@
                 "male": "pNInz6obpgDQGcFmaJgB",
                 "female": "EXAVITQu4vr4xnSDxMaL"
             }
+        },
+        "el": {
+            "name": "Yunanca",
+            "native_name": "Ελληνικά",
+            "flag": "🇬🇷",
+            "whisper_code": "el",
+            "translator_code": "el",
+            "edge_tts": {
+                "male": "el-GR-NestorasNeural",
+                "female": "el-GR-AthinaNeural"
+            },
+            "elevenlabs": {
+                "male": "pNInz6obpgDQGcFmaJgB",
+                "female": "EXAVITQu4vr4xnSDxMaL"
+            }
         }
     }
 }

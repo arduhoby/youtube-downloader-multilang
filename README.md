@@ -6,6 +6,7 @@ Modern bir YouTube video indirme ve yapay zeka destekli dublaj uygulaması. PyQt
 
 ### 📥 Video İndirme
 - YouTube videolarını farklı çözünürlüklerde indirme (360p, 480p, 720p, 1080p, En İyi)
+- **Yerel video dosyalarını işleme desteği** (Bilgisayarınızdaki videoları dublajlayın)
 - Otomatik format seçimi ve dönüştürme
 - İlerleme takibi ve durum bildirimleri
 - İndirilen videoları otomatik olarak harici oynatıcıda açma
@@ -30,6 +31,10 @@ Modern bir YouTube video indirme ve yapay zeka destekli dublaj uygulaması. PyQt
 - **İngilizce Sesler:**
   - Guy (Erkek)
   - Jenny (Kadın)
+- **Diğer Diller:**
+  - Almanca, Fransızca, İspanyolca, İtalyanca, Portekizce, Rusça, Japonca, Korece, Çince, Yunanca ve daha fazlası...
+- **Ses Çakışmasını Önleme:**
+  - Konuşma süresi ayrılan süreye sığmazsa otomatik hızlandırma (Smart Speed-up)
 
 #### **ElevenLabs (Premium)**
 - Profesyonel kalitede TTS
@@ -46,6 +51,8 @@ Modern bir YouTube video indirme ve yapay zeka destekli dublaj uygulaması. PyQt
 
 ### 🎨 Kullanıcı Arayüzü
 - Modern ve temiz PyQt5 arayüzü
+- **Yatay Yerleşim:** Sol tarafta kontroller, sağ tarafta log paneli
+- **Gizlenebilir Log Paneli:** İstediğiniz zaman logları gizleyerek arayüzü sadeleştirin
 - Kalıcı log sistemi (tüm işlemler kaydedilir)
 - Zaman damgalı mesajlar
 - İptal butonu (işlemi istediğiniz zaman durdurun)
@@ -99,9 +106,9 @@ python main.py
 
 ### Temel Kullanım
 
-1. **Video İndirme:**
-   - YouTube URL'sini yapıştırın
-   - Çözünürlük seçin
+1. **Video İndirme / Seçme:**
+   - YouTube URL'sini **veya** bilgisayarınızdaki bir video dosyasının yolunu yapıştırın
+   - Çözünürlük seçin (YouTube için)
    - "İndir ve Oynat" butonuna tıklayın
 
 2. **Dublaj Seçenekleri:**
@@ -133,6 +140,13 @@ python main.py
    - İngilizce Erkek Voice ID
    - İngilizce Kadın Voice ID
 4. "Ayarları Kaydet" butonuna tıklayın
+
+### Ses Çakışmasını Önleme
+- **"Ses Çakışmasını Önle (Hızlandır)"** kutucuğu işaretliyse (varsayılan):
+  - Eğer çevrilen metnin okuması, videodaki orijinal konuşma süresinden uzun sürerse, ses otomatik olarak hızlandırılır (max 2x).
+  - Bu sayede cümleler birbirinin üzerine binmez ve senkronizasyon korunur.
+- İşaretli değilse:
+  - Ses normal hızda okunur, bir sonraki cümleyle çakışabilir.
 
 ### İşlemi İptal Etme
 - İndirme veya dublaj sırasında "İptal" butonu aktif olur
@@ -233,8 +247,8 @@ pip install numpy==1.26.4
 
 - **ElevenLabs Ücretsiz Tier:** 10,000 karakter/ay
 - **Önerilen Video Süresi:** 5-10 dakika (daha uzun videolar için daha fazla işlem süresi)
-- **Desteklenen Diller:** Türkçe ↔ İngilizce
-- **Video Formatı:** WMV (FFmpeg ile otomatik dönüştürme)
+- **Desteklenen Diller:** Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Portekizce, Rusça, Japonca, Korece, Çince, Yunanca
+- **Video Formatı:** WMV/MP4 (FFmpeg ile otomatik dönüştürme)
 
 ## 🤝 Katkıda Bulunma
 

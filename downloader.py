@@ -64,15 +64,34 @@ class DownloaderWorker(QThread):
                 'ffmpeg_location': ffmpeg_dir,
             }
 
-            self.progress.emit("Video indiriliyor...")
-            
             filename = None
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(self.url, download=True)
-                if not info:
-                    self.error.emit("Video bilgileri alınamadı.")
+            
+            # Check if input is a local file
+            if os.path.exists(self.url) and os.path.isfile(self.url):
+                self.progress.emit(f"📂 Yerel dosya algılandı: {self.url}")
+                
+                # Create a copy in media folder to avoid modifying original
+                base_name = os.path.basename(self.url)
+                # Remove invalid characters for safety
+                base_name = "".join([c for c in base_name if c.isalpha() or c.isdigit() or c in (' ', '.', '_', '-')]).rstrip()
+                target_path = os.path.join(media_dir, base_name)
+                
+                try:
+                    shutil.copy2(self.url, target_path)
+                    filename = target_path
+                    self.progress.emit("Dosya kopyalandı, işleniyor...")
+                except Exception as e:
+                    self.error.emit(f"Dosya kopyalama hatası: {e}")
                     return
-                filename = ydl.prepare_filename(info)
+            else:
+                # It's a URL, download with yt-dlp
+                self.progress.emit("Video indiriliyor...")
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(self.url, download=True)
+                    if not info:
+                        self.error.emit("Video bilgileri alınamadı.")
+                        return
+                    filename = ydl.prepare_filename(info)
             
             if filename:
                 # 1. Videoyu MP4'e çevir (Evrensel uyumluluk için)
@@ -384,6 +403,30 @@ class DownloaderWorker(QThread):
                     
                     # Load TTS audio
                     tts_audio = AudioSegment.from_mp3(temp_tts_file)
+                    tts_duration = len(tts_audio) / 1000.0  # seconds
+                    
+                    # Calculate available time slot
+                    if i < len(subtitles) - 1:
+                        next_start = subtitles[i+1]['start']
+                    else:
+                        next_start = video_duration
+                    
+                    max_duration = next_start - start_time
+                    
+                    # Check if TTS is too long
+                    prevent_overlap = config.get('prevent_overlap', True)
+                    
+                    if prevent_overlap and tts_duration > max_duration and max_duration > 0.5: # Ensure max_duration is reasonable
+                        speed_rate = tts_duration / max_duration
+                        # Add 10% buffer and clamp between 1.0 and 2.0
+                        speed_rate = min(max(speed_rate * 1.1, 1.0), 2.0)
+                        
+                        if speed_rate > 1.05: # Only speed up if significant
+                            self.progress.emit(f"⚠️ Hızlandırılıyor: {speed_rate:.2f}x (Segment {i+1})")
+                            sped_up_file = f"media/temp_tts_{i}_fast.mp3"
+                            if self.speed_up_audio(temp_tts_file, sped_up_file, speed_rate):
+                                tts_audio = AudioSegment.from_mp3(sped_up_file)
+                                temp_audio_files.append(sped_up_file)
                     
                     # Calculate overlay position (in milliseconds)
                     overlay_position = int(start_time * 1000)
@@ -636,6 +679,30 @@ class DownloaderWorker(QThread):
             else:
                 # Fallback to default multilingual voice
                 return 'pNInz6obpgDQGcFmaJgB'
+
+    def speed_up_audio(self, input_path, output_path, speed_rate):
+        """Speed up audio using FFmpeg atempo filter"""
+        try:
+            import subprocess
+            ffmpeg_exe = r'C:\Users\melih\AppData\Local\Microsoft\WinGet\Links\ffmpeg.exe'
+            
+            # atempo filter accepts values between 0.5 and 2.0 (or 100.0 in newer versions, but safe range is 0.5-2.0)
+            # If rate > 2.0, we might need multiple passes, but we capped it at 2.0
+            
+            cmd = [
+                ffmpeg_exe,
+                '-i', input_path,
+                '-filter:a', f"atempo={speed_rate}",
+                '-vn',
+                '-y',
+                output_path
+            ]
+            
+            subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            return True
+        except Exception as e:
+            print(f"Speed Up Error: {e}")
+            return False
 
 class Downloader(QObject):
     finished = pyqtSignal(str, str)

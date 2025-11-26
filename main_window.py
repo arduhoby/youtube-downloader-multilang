@@ -13,12 +13,22 @@ class MainWindow(QMainWindow):
 
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
-        self.layout = QVBoxLayout(self.central_widget)
+        self.main_layout = QHBoxLayout(self.central_widget)
+
+        # Left Panel (Controls)
+        self.left_widget = QWidget()
+        self.layout = QVBoxLayout(self.left_widget)
+        self.main_layout.addWidget(self.left_widget, stretch=7)
+
+        # Right Panel (Logs)
+        self.right_widget = QWidget()
+        self.right_layout = QVBoxLayout(self.right_widget)
+        self.main_layout.addWidget(self.right_widget, stretch=3)
 
         # Input Area
         self.input_layout = QHBoxLayout()
         self.url_input = QLineEdit()
-        self.url_input.setPlaceholderText("YouTube URL yapıştırın...")
+        self.url_input.setPlaceholderText("YouTube URL veya Dosya Yolu yapıştırın...")
         
         self.resolution_combo = QComboBox()
         self.resolution_combo.addItems(["720p", "360p", "480p", "1080p", "En İyi"])
@@ -166,6 +176,11 @@ class MainWindow(QMainWindow):
             self.custom_voice_labels.append(label)
             self.custom_voice_inputs[voice_key] = input_field
         
+        # Prevent Overlap Checkbox
+        self.prevent_overlap_checkbox = QCheckBox("Ses Çakışmasını Önle (Hızlandır)")
+        self.prevent_overlap_checkbox.setToolTip("Eğer ses altyazı süresinden uzunsa otomatik hızlandırır.")
+        settings_layout.addWidget(self.prevent_overlap_checkbox)
+
         # Save Settings Button
         self.save_settings_button = QPushButton("Ayarları Kaydet")
         self.save_settings_button.clicked.connect(self.save_settings)
@@ -174,14 +189,18 @@ class MainWindow(QMainWindow):
         settings_group.setLayout(settings_layout)
         self.layout.addWidget(settings_group)
 
-        # Status/Log Area
+        # Toggle Log Button
+        self.toggle_log_button = QPushButton("Logları Gizle >>")
+        self.toggle_log_button.clicked.connect(self.toggle_log_panel)
+        self.layout.addWidget(self.toggle_log_button)
+
+        # Status/Log Area (Right Panel)
         log_label = QLabel("Durum ve Loglar:")
-        self.layout.addWidget(log_label)
+        self.right_layout.addWidget(log_label)
         
         self.log_area = QTextEdit()
         self.log_area.setReadOnly(True)
-        self.log_area.setMaximumHeight(150)
-        self.layout.addWidget(self.log_area)
+        self.right_layout.addWidget(self.log_area)
         
         # Cancel Button
         self.cancel_button = QPushButton("İptal")
@@ -203,7 +222,7 @@ class MainWindow(QMainWindow):
         resolution = self.resolution_combo.currentText()
         
         if not url:
-            self.add_log("❌ HATA: Lütfen bir YouTube URL girin!")
+            self.add_log("❌ HATA: Lütfen bir YouTube URL veya Dosya Yolu girin!")
             return
         
         # Determine target language(s)
@@ -227,6 +246,9 @@ class MainWindow(QMainWindow):
         # Get voice gender preference
         voice_gender = self.voice_gender_combo.currentData()
         self.config['voice_gender_preference'] = voice_gender
+        
+        # Get prevent overlap preference
+        self.config['prevent_overlap'] = self.prevent_overlap_checkbox.isChecked()
 
         self.add_log("İşleniyor...")
         self.download_button.setEnabled(False)
@@ -302,6 +324,10 @@ class MainWindow(QMainWindow):
         custom_voices = self.config.get('custom_voice_ids', {})
         for voice_key, input_field in self.custom_voice_inputs.items():
             input_field.setText(custom_voices.get(voice_key, ''))
+        
+        # Set prevent overlap
+        prevent_overlap = self.config.get('prevent_overlap', True)
+        self.prevent_overlap_checkbox.setChecked(prevent_overlap)
         
         # Update visibility
         self.on_tts_engine_changed()
@@ -416,8 +442,20 @@ class MainWindow(QMainWindow):
         for voice_key, input_field in self.custom_voice_inputs.items():
             self.config['custom_voice_ids'][voice_key] = input_field.text()
         
+        # Save prevent overlap
+        self.config['prevent_overlap'] = self.prevent_overlap_checkbox.isChecked()
+        
         # Save to file
         if config_manager.save_config(self.config):
             self.add_log("✅ Ayarlar kaydedildi!")
         else:
             self.add_log("❌ Ayarlar kaydedilemedi!")
+
+    def toggle_log_panel(self):
+        """Toggle the visibility of the log panel"""
+        if self.right_widget.isVisible():
+            self.right_widget.hide()
+            self.toggle_log_button.setText("Logları Göster <<")
+        else:
+            self.right_widget.show()
+            self.toggle_log_button.setText("Logları Gizle >>")
